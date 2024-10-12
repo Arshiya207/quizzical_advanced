@@ -1,0 +1,92 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* variables */
+:root {
+  --dark-violet: #293264;
+  --medium-violet: #4d5b9e;
+  --light-violet: #d6dbf5;
+  --white-color: #f5f7fb;
+}
+/* end variables */
+body {
+  font-family: "Inter";
+  font-weight: 400;
+  color: var(--dark-violet);
+}
+/*
+    buttons css
+*/
+
+.large__btn {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 1.25rem 2.75rem;
+  background-color: var(--medium-violet);
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+  color: var(--white-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.large__btn:hover {
+  transition: 0.2s ease opacity;
+  opacity: 0.8;
+}
+
+/*
+   end buttons css
+*/
+/* app page code */
+.container {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.yellow-particle {
+  background-image: url(images/yellowParticle.png);
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: contain;
+  height: 40%;
+  width: 40%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.violet-particle {
+  background-image: url(images/violetParticle.png);
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-size: contain;
+  height: 40%;
+  width: 40%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+/* end app page code */
+/* start page code */
+.start-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+.start__title {
+  font-size: 3.75rem;
+}
+.start__description {
+  font-size: 1.25rem;
+}
+
+/* end start page code */
