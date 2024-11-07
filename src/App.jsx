@@ -1,5 +1,6 @@
 import StartP from "./components/StartP"
 import DarkModeBtn from "./components/DarkModeBtn"
+import CreateQP from "./components/CreateQP"
 import React, { useEffect } from "react"
 export default function App(){
     const [darkMode,setDarkMode]=React.useState(false)
@@ -39,7 +40,7 @@ export default function App(){
         <div className="container"> 
         <DarkModeBtn toggleDarkMode={toggleDarkMode} />
         <div className="yellow-particle"></div>
-           <StartP/>
+           <CreateQP/>
         <div className="violet-particle"></div>
         </div>
     )

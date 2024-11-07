@@ -51,9 +51,25 @@ body {
   font-size: 1.25rem;
 }
 
-.large__btn:hover {
+.large__btn:hover,.medium__btn:hover{
   transition: 0.2s ease opacity;
   opacity: 0.8;
+}
+.medium__btn{
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: .5rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  color: var(--dark-violet);
+}
+.back__btn{
+  background-color: var(--light-violet)
+}
+.start__btn{
+  background-color: var(--medium-violet);
 }
 
 /*
@@ -78,6 +94,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: -1;
 }
 .violet-particle {
   background-image: url(images/violetParticle.png);
@@ -89,6 +106,7 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: -1;
 }
 /* end app page code */
 /* start page code */
@@ -106,6 +124,60 @@ body {
 }
 
 /* end start page code */
+/* creat quiz page code */
+.create-quiz-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+.QP-information__title{
+font-size: 3rem;
+}
+.QP-information__description{
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+.createQuiz__information{
+  width: 50%;
+  text-align: center;
+}
+.createQuiz__navigation{
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin-top: 1.5rem;
+}
+.createQuiz__inputs{
+  width: 50%;
+  margin-top: 1.5rem;
+}
+.createQuiz__inputs>div{
+  margin-top: .5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.createQuiz__inputs>div>label{
+  margin-right: .3rem;
+}
+.QP__input{
+  outline: none;
+  background: none;
+  border: none;
+  background-color: var(--light-violet);
+  padding: .5rem;
+  border-radius: .2rem;
+  font-size: 1rem;
+
+}
+/* end creat quiz page code */
+
+
+
+
+
 /* dark mode btn */
 .dark-mode-wrapper{
   position: absolute;
@@ -187,7 +259,7 @@ body {
 
 /* end dark mode btn */
 
-
+/* media queries */
 @media screen and (max-width:656px){
   html{
     font-size: 10px;
