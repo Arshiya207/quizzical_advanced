@@ -1,8 +1,24 @@
 import React from "react";
-export default function CreateQP() {
-  const [input, setInputs] = React.useState({});
+export default function CreateQP(props) {
+  const [inputs, setInputs] = React.useState({
+    amount: "1",
+    difficulty: "",
+    type: "",
+    category: "9",
+  });
   const [categories, setCategories] = React.useState();
+  // event handlers
+  function inputChange(e) {
+    const { value, name } = e.target;
 
+    setInputs((preInputs) => {
+      return { ...preInputs, [name]: value };
+    });
+  }
+
+  //end event handlers
+
+  // use effects
   React.useEffect(() => {
     async function fetchCate() {
       const res = await fetch("https://opentdb.com/api_category.php");
@@ -11,18 +27,19 @@ export default function CreateQP() {
     }
     fetchCate();
   }, []);
-let categoriesElements="loading"
+  // end use effects
+  let categoriesElements = "loading";
 
- if(categories){
-   categoriesElements = categories.map((category) => (
-    <option key={category.id} value={category.name}>
-      {category.name}
-    </option>
-  ));
- }
- 
+  if (categories) {
+    categoriesElements = categories.map((category) => (
+      <option key={category.id} value={category.id}>
+        {category.name}
+      </option>
+    ));
+  }
+
   return (
-    <div className="create-quiz-container">
+    <div className="create-quiz-container slide-in-elliptic-top-fwd">
       <div className="createQuiz__information">
         <h2 className="QP-information__title">Create a Quiz</h2>
         <p className="QP-information__description">
@@ -33,35 +50,73 @@ let categoriesElements="loading"
       <div className="createQuiz__inputs">
         <div>
           <label htmlFor="amount">number of Questions: </label>
-          <input type="text" name="amount" id="amount" className="QP__input"/>
+          <input
+            type="number"
+            min="1"
+            max="50"
+            name="amount"
+            id="amount"
+            value={inputs.amount}
+            onChange={inputChange}
+            className="QP__input"
+          />
         </div>
         <div>
           <label htmlFor="difficulty">select difficulty: </label>
-          <select name="difficulty" id="difficulty" className="QP__input">
-            <option value="random" >random</option>
+          <select
+            name="difficulty"
+            value={inputs.difficulty}
+            onChange={inputChange}
+            id="difficulty"
+            className="QP__input"
+          >
+            <option value="">random</option>
             <option value="easy">easy</option>
-            <option value="hard">hard</option>
-            <option value="very hard">very hard</option>
+            <option value="medium">hard</option>
+            <option value="hard">very hard</option>
           </select>
         </div>
         <div>
-            <label htmlFor="type">select type: </label>
-          <select name="type" id="type" className="QP__input">
-            <option value="random" >random</option>
+          <label htmlFor="type">select type: </label>
+          <select
+            name="type"
+            id="type"
+            value={inputs.type}
+            onChange={inputChange}
+            className="QP__input"
+          >
+            <option value="">random</option>
             <option value="multiple">multiple</option>
-            <option value="true / false">true / false</option>
+            <option value="boolean">true / false</option>
           </select>
         </div>
         <div>
-            <label htmlFor="category">select category: </label>
-          <select name="category" id="category"  className="QP__input">
-            {!categories? <option>{categoriesElements}</option>: categoriesElements }
+          <label htmlFor="category">select category: </label>
+          <select
+            name="category"
+            id="category"
+            value={inputs.category}
+            onChange={inputChange}
+            className="QP__input"
+          >
+            {!categories ? (
+              <option>{categoriesElements}</option>
+            ) : (
+              categoriesElements
+            )}
           </select>
         </div>
       </div>
       <div className="createQuiz__navigation">
-        <button className="medium__btn back__btn">back</button>
-        <button className="medium__btn start__btn">let's do this</button>
+        <button className="medium__btn back__btn" onClick={props.goBack}>
+          back
+        </button>
+        <button
+          className="medium__btn start__btn"
+          onClick={() => props.startG(inputs)}
+        >
+          let's do this
+        </button>
       </div>
     </div>
   );

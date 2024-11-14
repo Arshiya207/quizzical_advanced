@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: .6s ease background-color;
+  transition: 0.6s ease background-color;
 }
 /* variables */
 :root[data-theme="light"] {
@@ -12,20 +12,19 @@
   --medium-violet: #4d5b9e;
   --light-violet: #d6dbf5;
   --white-color: #f5f7fb;
-  --dark-mode-back-color-bi:#0a2647c9;
-  --dark-mode-icon-color-bi:#F2F7A1;
-  --dark-mode-boxshadow-bi:#000000;
+  --dark-mode-back-color-bi: #0a2647c9;
+  --dark-mode-icon-color-bi: #f2f7a1;
+  --dark-mode-boxshadow-bi: #000000;
 }
-:root[data-theme="dark"]{
-  --dark-violet: #EEEEEE;
-  --medium-violet: #00ADB5;
-  --light-violet: #393E46;
+:root[data-theme="dark"] {
+  --dark-violet: #eeeeee;
+  --medium-violet: #00adb5;
+  --light-violet: #393e46;
   --white-color: #f5f7fb;
   --dark-back-color: #222831;
-  --dark-mode-back-color-bi:#FFCC33;
-  --dark-mode-icon-color-bi:#fff;
-  --dark-mode-boxshadow-bi:#211212;
-
+  --dark-mode-back-color-bi: #ffcc33;
+  --dark-mode-icon-color-bi: #fff;
+  --dark-mode-boxshadow-bi: #211212;
 }
 /* end variables */
 body {
@@ -51,24 +50,25 @@ body {
   font-size: 1.25rem;
 }
 
-.large__btn:hover,.medium__btn:hover{
+.large__btn:hover,
+.medium__btn:hover {
   transition: 0.2s ease opacity;
   opacity: 0.8;
 }
-.medium__btn{
+.medium__btn {
   outline: none;
   border: none;
   cursor: pointer;
   background: none;
-  padding: .5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 5px;
   font-size: 1.25rem;
   color: var(--dark-violet);
 }
-.back__btn{
-  background-color: var(--light-violet)
+.back__btn {
+  background-color: var(--light-violet);
 }
-.start__btn{
+.start__btn {
   background-color: var(--medium-violet);
 }
 
@@ -125,61 +125,55 @@ body {
 
 /* end start page code */
 /* creat quiz page code */
-.create-quiz-container{
+.create-quiz-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
-.QP-information__title{
-font-size: 3rem;
+.QP-information__title {
+  font-size: 3rem;
 }
-.QP-information__description{
+.QP-information__description {
   font-size: 1.25rem;
   margin-top: 1rem;
 }
-.createQuiz__information{
+.createQuiz__information {
   width: 50%;
   text-align: center;
 }
-.createQuiz__navigation{
+.createQuiz__navigation {
   display: flex;
   justify-content: space-between;
   width: 50%;
   margin-top: 1.5rem;
 }
-.createQuiz__inputs{
+.createQuiz__inputs {
   width: 50%;
   margin-top: 1.5rem;
 }
-.createQuiz__inputs>div{
-  margin-top: .5rem;
+.createQuiz__inputs > div {
+  margin-top: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.createQuiz__inputs>div>label{
-  margin-right: .3rem;
+.createQuiz__inputs > div > label {
+  margin-right: 0.3rem;
 }
-.QP__input{
+.QP__input {
   outline: none;
   background: none;
   border: none;
   background-color: var(--light-violet);
-  padding: .5rem;
-  border-radius: .2rem;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
   font-size: 1rem;
-
 }
 /* end creat quiz page code */
 
-
-
-
-
 /* dark mode btn */
-.dark-mode-wrapper{
+.dark-mode-wrapper {
   position: absolute;
   top: 0;
   right: 0;
@@ -192,76 +186,169 @@ font-size: 3rem;
   align-items: center;
   justify-content: flex-start;
   background-color: var(--dark-mode-back-color-bi);
-  padding: .5rem .3rem;
+  padding: 0.5rem 0.3rem;
   cursor: pointer;
   box-shadow: 0 0 5px 0px var(--dark-mode-boxshadow-bi) inset;
-  
-  
 }
-.dark-mode__icon{
+.dark-mode__icon {
   font-size: 1.5rem;
   color: var(--dark-mode-icon-color-bi);
   position: relative;
   left: 0%;
-  transition: .6s linear color;
-  
-  
-  
+  transition: 0.6s linear color;
 }
-.light-transition{
-  animation: light-mode-transition 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+/*end dark mode btn */
 
+/*  loading css */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--medium-violet);
+}
+.loader {
+  width: 100px;
+  height: 100px;
+  border: 10px solid var(--light-violet);
+  border-top-color: var(--dark-violet);
+  border-radius: 50%;
+  animation-name: loader;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.loading__hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s linear all;
+}
+@keyframes loader {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+/* end loading css */
+/* question page and questions styling */
+.question-page {
+  width: 80%;
+  height: 100%;
+}
+.questions-container {
+  overflow-y: auto;
+  max-height: 100%;
+}
+.question {
+  border-bottom: 1px solid var(--light-violet);
+  padding-block: 1.5rem;
+}
+.question-title {
+  font-size: 1.5rem;
+  color: var(--dark-violet);
+}
+.answers-container {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.answer {
+  background: none;
+  outline: none;
+  border: 2px solid var(--medium-violet);
+  color: var(--medium-violet);
+
+  font-size: 1.125rem;
+  border-radius: 12px;
+  padding: 0.5rem 2.25rem;
+  cursor: pointer;
 }
 
-.dark-transition{
- 
- 
-  animation: dark-mode-transition 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  
+.answer:hover {
+  background-color: var(--light-violet);
+  border: 2px solid transparent;
+  transition: 0.2s ease;
 }
+
+/* end question page and questions styling */
+
+/* animations */
+.slide-in-elliptic-top-fwd {
+  animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+}
+.light-transition {
+  animation: light-mode-transition 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+}
+
+.dark-transition {
+  animation: dark-mode-transition 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-in-elliptic-top-fwd {
+  0% {
+    -webkit-transform: translateY(-600px) rotateX(-30deg) scale(0);
+    transform: translateY(-600px) rotateX(-30deg) scale(0);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0) rotateX(0) scale(1);
+    transform: translateY(0) rotateX(0) scale(1);
+    -webkit-transform-origin: 50% 1400px;
+    transform-origin: 50% 1400px;
+    opacity: 1;
+  }
+}
+
 @keyframes dark-mode-transition {
   0% {
     -webkit-transform: rotate(-360deg);
-            transform: rotate(-360deg);
-           opacity: 0;
-           left: 0;
-  translate: -100%;
-
+    transform: rotate(-360deg);
+    opacity: 0;
+    left: 0;
+    translate: -100%;
   }
   100% {
     -webkit-transform: rotate(0);
-            transform: rotate(0);
-            opacity: 1;
-            left: 100%;
-  translate: -100%;
-
+    transform: rotate(0);
+    opacity: 1;
+    left: 100%;
+    translate: -100%;
   }
 }
 @keyframes light-mode-transition {
   0% {
     -webkit-transform: rotate(-360deg);
-            transform: rotate(-360deg);
-           opacity: 0;
-           left: 100%;
-  translate: 0;
-
+    transform: rotate(-360deg);
+    opacity: 0;
+    left: 100%;
+    translate: 0;
   }
   100% {
     -webkit-transform: rotate(0);
-            transform: rotate(0);
-            opacity: 1;
-            left: 0;
-  translate: 0;
-
+    transform: rotate(0);
+    opacity: 1;
+    left: 0;
+    translate: 0;
   }
 }
 
-
+/* end animations */
 /* end dark mode btn */
 
 /* media queries */
-@media screen and (max-width:656px){
-  html{
+@media screen and (max-width: 656px) {
+  html {
     font-size: 10px;
   }
 }
