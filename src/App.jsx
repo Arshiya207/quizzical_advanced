@@ -29,6 +29,13 @@ export default function App() {
     }
     return array;
   }
+  function resetToDefaultValues() {
+    setStartGame(false);
+    setIsLoading(false);
+    setLoadingOver(false);
+    setQuestions([]);
+    setQuestionUrl("");
+  }
 
   //end helper functions
   // event handler functions
@@ -160,9 +167,18 @@ export default function App() {
     if (questionUrl !== "" && startGame === true) {
       async function getQuestions() {
         setIsLoading(true);
-        let response = await fetch(questionUrl);
-        const data = await response.json();
-        const results = data.results;
+        let results;
+        try {
+          let response = await fetch(questionUrl);
+          const data = await response.json();
+          results = data.results;
+          if (data.results === undefined)
+            throw Error("there is an error fetching data");
+        } catch (error) {
+          alert("there is an error: " + error);
+          resetToDefaultValues();
+          return;
+        }
         const newQArray = [];
 
         results.forEach((q) => {
@@ -192,6 +208,13 @@ export default function App() {
           redefinedObj.answers = randomizeArray(redefinedObj.answers);
           newQArray.push(redefinedObj);
         });
+        if (newQArray.length === 0) {
+          alert(
+            "there is not enough questions with your specified values. change your input"
+          );
+          resetToDefaultValues();
+          return;
+        }
         setQuestions(newQArray);
         setNumOfQuestions(newQArray.length);
         goForward();
