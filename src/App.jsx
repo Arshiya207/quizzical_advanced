@@ -225,7 +225,6 @@ export default function App() {
     }
   }, [startGame]);
   //end use effects
-  console.log(questions);
   return (
     <div className="container">
       <DarkModeBtn toggleDarkMode={toggleDarkMode} />
