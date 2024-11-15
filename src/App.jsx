@@ -15,6 +15,9 @@ export default function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [loadingOver, setLoadingOver] = React.useState(false);
   const [questions, setQuestions] = React.useState([]);
+  const [numOfQuestions, setNumOfQuestions] = React.useState(0);
+  const [unanswered, setUnanswered] = React.useState(0);
+  const [correctAnswers, setCorrectAnswers] = React.useState(0);
   // helper functions
 
   function randomizeArray(array) {
@@ -34,6 +37,11 @@ export default function App() {
   }
   function goBack() {
     if (page === 0) return;
+    setStartGame(false);
+    setLoadingOver(false);
+    setIsLoading(false);
+    setQuestionUrl("");
+    setQuestions([]);
     setPage((prePage) => prePage - 1);
   }
   function goForward() {
@@ -63,7 +71,65 @@ export default function App() {
   function endLoading() {
     setIsLoading(false);
   }
+  function flipAnswer(anID, qID) {
+    if (!startGame) return;
+    setQuestions((prevQuestions) => {
+      const qCopy = [...prevQuestions];
 
+      return qCopy.map((q) => {
+        if (q.qID === qID) {
+          const newAnswers = q.answers.map((an) => {
+            if (an.anID !== anID) an.isSelected = false;
+            if (an.anID === anID) {
+              return { ...an, isSelected: !an.isSelected };
+            } else {
+              return an;
+            }
+          });
+          const isAnswered = newAnswers.some((an) => {
+            if (an.isSelected) return true;
+            else return false;
+          });
+          const isAnsweredCorrect = newAnswers.some((an) => {
+            if (an.isSelected && an.isTrue) return true;
+            else return false;
+          });
+
+          return {
+            ...q,
+            answers: newAnswers,
+            isAnswered: isAnswered,
+            isAnswered_correctly: isAnsweredCorrect,
+          };
+        } else {
+          return q;
+        }
+      });
+    });
+  }
+
+  function checkAnswers() {
+    let correctAnswers = 0;
+    let unanswered = 0;
+
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].isAnswered_correctly) {
+        correctAnswers += 1;
+      } else if (!questions[i].isAnswered) {
+        unanswered += 1;
+      }
+    }
+
+    setCorrectAnswers(correctAnswers);
+    setUnanswered(unanswered);
+    setStartGame(false);
+  }
+
+  function retry() {
+    setStartGame(true);
+    setIsLoading(false);
+    setLoadingOver(false);
+  }
   // end event functions
 
   //use effects
@@ -91,7 +157,7 @@ export default function App() {
   }, [darkMode]);
 
   useEffect(() => {
-    if (questionUrl) {
+    if (questionUrl !== "" && startGame === true) {
       async function getQuestions() {
         setIsLoading(true);
         let response = await fetch(questionUrl);
@@ -126,8 +192,8 @@ export default function App() {
           redefinedObj.answers = randomizeArray(redefinedObj.answers);
           newQArray.push(redefinedObj);
         });
-
         setQuestions(newQArray);
+        setNumOfQuestions(newQArray.length);
         goForward();
         setLoadingOver(true);
       }
@@ -136,7 +202,7 @@ export default function App() {
     }
   }, [startGame]);
   //end use effects
-
+  console.log(questions);
   return (
     <div className="container">
       <DarkModeBtn toggleDarkMode={toggleDarkMode} />
@@ -148,12 +214,22 @@ export default function App() {
         ) : page === 1 ? (
           <CreateQP goBack={goBack} goForward={goForward} startG={startG} />
         ) : (
-          <QuestionP questions={questions} />
+          <QuestionP
+            questions={questions}
+            goBack={goBack}
+            flipAnswer={flipAnswer}
+            checkAnswers={checkAnswers}
+            startGame={startGame}
+            unanswered={unanswered}
+            correctAnswers={correctAnswers}
+            numOfQuestions={numOfQuestions}
+            retry={retry}
+          />
         )
       ) : (
         <Loading loadingOver={loadingOver} endLoading={endLoading} />
       )}
-      {/* <QuestionP questions={questions} /> */}
+
       <div className="violet-particle"></div>
     </div>
   );

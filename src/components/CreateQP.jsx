@@ -1,7 +1,7 @@
 import React from "react";
 export default function CreateQP(props) {
   const [inputs, setInputs] = React.useState({
-    amount: "1",
+    amount: "5",
     difficulty: "",
     type: "",
     category: "9",

@@ -15,6 +15,9 @@
   --dark-mode-back-color-bi: #0a2647c9;
   --dark-mode-icon-color-bi: #f2f7a1;
   --dark-mode-boxshadow-bi: #000000;
+  --wrong: rgba(201, 16, 16, 0.733);
+  --correct: rgba(21, 194, 21, 0.724);
+  --ananswered: rgba(197, 197, 21, 0.733);
 }
 :root[data-theme="dark"] {
   --dark-violet: #eeeeee;
@@ -25,6 +28,9 @@
   --dark-mode-back-color-bi: #ffcc33;
   --dark-mode-icon-color-bi: #fff;
   --dark-mode-boxshadow-bi: #211212;
+  --wrong: rgba(191, 41, 41, 0.733);
+  --correct: rgba(39, 134, 39, 0.724);
+  --ananswered: rgba(105, 105, 42, 0.733);
 }
 /* end variables */
 body {
@@ -243,7 +249,8 @@ body {
 }
 .questions-container {
   overflow-y: auto;
-  max-height: 100%;
+  height: 80%;
+  margin-top: 1rem;
 }
 .question {
   border-bottom: 1px solid var(--light-violet);
@@ -276,7 +283,46 @@ body {
   border: 2px solid transparent;
   transition: 0.2s ease;
 }
+.answer_selected {
+  background-color: var(--light-violet);
+}
+.check-answers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
 
+.question-page > .back__btn {
+  margin-top: 1.125rem;
+}
+.checkAnswers_description {
+  font-size: 1.5rem;
+}
+
+.wrong,
+.wrong:hover {
+  background-color: var(--wrong);
+  cursor: not-allowed;
+  border: 2px solid var(--medium-violet);
+}
+.correct,
+.correct:hover {
+  background-color: var(--correct);
+  border: 2px solid var(--medium-violet);
+}
+.unanswered,
+.unanswered:hover {
+  background-color: var(--ananswered);
+  cursor: not-allowed;
+  border: 2px solid var(--medium-violet);
+}
+.disabled,
+.disabled:hover {
+  cursor: not-allowed;
+  border: 2px solid var(--medium-violet);
+}
 /* end question page and questions styling */
 
 /* animations */
@@ -351,4 +397,10 @@ body {
   html {
     font-size: 10px;
   }
+}
+:root[data-theme="dark"] .yellow-particle {
+  display: none;
+}
+:root[data-theme="dark"] .violet-particle {
+  display: none;
 }
